@@ -28,9 +28,15 @@ const getCountDowns = async (req, res) => {
 };
 
 const getCountDown = async (req, res) => {
-  const { id } = req.params;
+  const { id, page, size } = req.params;
+
+  let currentPage = page || 0;
+  let pageSize = size || 10;
+
   try {
-    const countDown = await CountDown.findById(id);
+    const countDown = await CountDown.findById(id)
+      .limit(pageSize)
+      .skip(currentPage * pageSize);
     res.json(countDown);
   } catch (error) {
     res.status(500).json({ error: error.message });
