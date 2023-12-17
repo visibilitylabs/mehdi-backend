@@ -19,13 +19,15 @@ import { verifyUser } from './middleware.js';
 const router = express.Router();
 
 router
-    .route('/countdown/:id')
+    .route('/countdowns/:id')
     .get(verifyUser, getCountDown)
     .post(verifyUser, createCountDown)
     .delete(verifyUser, deleteCountDown)
     .put(verifyUser, updateCountDown);
 
-router.route('/countdowns').get(verifyUser, getCountDowns);
+router.route('/countdowns').get(verifyUser, getCountDowns).post(verifyUser, createCountDown);
+router.route('/user/login').post(loginUser);
+router.route('/user/signup').post(createUser);
 router
     .route('/user/:id')
     .get(verifyUser, getUser)
@@ -33,7 +35,5 @@ router
     .put(verifyUser, updateUser)
     .post(verifyUser, createUser);
 
-router.route('/user/login').post(loginUser);
-router.route('/user/signup').post(createUser);
 
 export default router;

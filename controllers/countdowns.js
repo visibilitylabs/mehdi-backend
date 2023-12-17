@@ -1,14 +1,15 @@
 import CountDown from "../models/countdown.js";
 
 const createCountDown = async(req, res) => {
-    const { user_id: _id } = req.user;
+    const user = req.user;
     const { title, date, backgroundImage } = req.body;
     const newCountDown = new CountDown({
         title,
         date,
         backgroundImage,
-        user: user_id,
+        user: user._id,
     });
+    console.log(title, date, backgroundImage, user)
     try {
         const countDown = await newCountDown.save();
         res.json(countDown);
@@ -19,9 +20,14 @@ const createCountDown = async(req, res) => {
 
 const getCountDowns = async(req, res) => {
     const { user_id } = req.user;
+    const { page, pageSize } = req.query;
     try {
         const countDowns = await CountDown.find({ user: user_id });
-        res.json(countDowns);
+        let list = countDowns;
+        console.log(list)
+        list = list.slice((page - 1) * pageSize, page * pageSize);
+        let count = countDowns.length;
+        res.json({ list, count });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
