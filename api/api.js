@@ -1,34 +1,42 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
   createCountDown,
   deleteCountDown,
   updateCountDown,
   getCountDowns,
   getCountDown,
-} = require('../controllers/countdowns');
-const {
+} from '../controllers/countdowns.js';
+import {
   getUser,
   deleteUser,
   updateUser,
   createUser,
   loginUser,
-} = require('../controllers/users');
+} from '../controllers/users.js';
 
+import { verifyUser } from './middleware.js';
+
+const router = express.Router();
+
+router.post('/check', verifyUser, (req, res) => {
+  try {
+    res.send('Healthy!');
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.route('/user/login').post(loginUser);
+router.route('/user/signup').post(createUser);
+
+router.use(verifyUser);
 router
-  .route('/createCountdown/:id')
+  .route('/countdown/:id')
   .get(getCountDown)
   .post(createCountDown)
   .delete(deleteCountDown)
   .put(updateCountDown);
+router.route('/countdowns').get(getCountDowns);
+router.route('/user/:id').get(getUser).delete(deleteUser).put(updateUser);
 
-router
-  .route('user/:id')
-  .get(getUser)
-  .delete(deleteUser)
-  .put(updateUser)
-  .post(createUser);
-
-router.route('user/login', loginUser);
-
-module.exports = router;
+export default router;

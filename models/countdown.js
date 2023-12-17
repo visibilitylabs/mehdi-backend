@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Define the Countdown schema
 const countdownSchema = new mongoose.Schema({
@@ -19,10 +19,14 @@ const countdownSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Create the Countdown model
 const Countdown = mongoose.model('Countdown', countdownSchema);
 
 // Export the Countdown model
-module.exports = Countdown;
+export default Countdown;

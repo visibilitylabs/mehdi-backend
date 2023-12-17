@@ -1,13 +1,12 @@
-const CountDown = require('../models/countdown');
+import CountDown from '../models/countdown.js';
 
 const createCountDown = async (req, res) => {
-  const { user_id: _id } = req.user;
   const { title, date, backgroundImage } = req.body;
   const newCountDown = new CountDown({
     title,
     date,
     backgroundImage,
-    user: user_id,
+    user: req.user._id,
   });
   try {
     const countDown = await newCountDown.save();
@@ -18,7 +17,7 @@ const createCountDown = async (req, res) => {
 };
 
 const getCountDowns = async (req, res) => {
-  const { user_id } = req.user;
+  const { user_id: _id } = req.user;
   try {
     const countDowns = await CountDown.find({ user: user_id });
     res.json(countDowns);
@@ -28,15 +27,9 @@ const getCountDowns = async (req, res) => {
 };
 
 const getCountDown = async (req, res) => {
-  const { id, page, size } = req.params;
-
-  let currentPage = page || 0;
-  let pageSize = size || 10;
-
+  const { id } = req.params;
   try {
-    const countDown = await CountDown.findById(id)
-      .limit(pageSize)
-      .skip(currentPage * pageSize);
+    const countDown = await CountDown.findById(id);
     res.json(countDown);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -69,7 +62,7 @@ const deleteCountDown = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   createCountDown,
   getCountDowns,
   getCountDown,
