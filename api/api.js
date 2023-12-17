@@ -30,4 +30,5 @@ router
   .post(createUser);
 
 router.route('user/login', loginUser);
+
 module.exports = router;
