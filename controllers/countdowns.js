@@ -19,7 +19,7 @@ const createCountDown = async(req, res) => {
 };
 
 const getCountDowns = async(req, res) => {
-    const { user_id } = req.user;
+    const user_id = req.user._id;
     const { page, pageSize } = req.query;
     try {
         const countDowns = await CountDown.find({ user: user_id });
