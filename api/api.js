@@ -14,22 +14,24 @@ import {
     loginUser,
 } from '../controllers/users.js';
 
+import { verifyUser } from './middleware.js';
+
 const router = express.Router();
 
 router
     .route('/countdown/:id')
-    .get(getCountDown)
-    .post(createCountDown)
-    .delete(deleteCountDown)
-    .put(updateCountDown);
+    .get(verifyUser, getCountDown)
+    .post(verifyUser, createCountDown)
+    .delete(verifyUser, deleteCountDown)
+    .put(verifyUser, updateCountDown);
 
-router.route('/countdowns').get(getCountDowns);
+router.route('/countdowns').get(verifyUser, getCountDowns);
 router
     .route('/user/:id')
-    .get(getUser)
-    .delete(deleteUser)
-    .put(updateUser)
-    .post(createUser);
+    .get(verifyUser, getUser)
+    .delete(verifyUser, deleteUser)
+    .put(verifyUser, updateUser)
+    .post(verifyUser, createUser);
 
 router.route('/user/login').post(loginUser);
 router.route('/user/signup').post(createUser);
