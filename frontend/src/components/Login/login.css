@@ -1,0 +1,44 @@
+.login-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-background .login-left-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.login-background .login-right-bottom {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    z-index: -1;
+}
+
+.login-card .card-footer {
+    justify-content: flex-end;
+}
+
+.heading {
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.login-card {
+    width: 500px;
+}

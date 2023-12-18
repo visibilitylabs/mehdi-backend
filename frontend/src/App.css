@@ -1,0 +1,117 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    background-image: url('https://picsum.photos/1920/1080?random=1');
+    height: 100%;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+}
+
+.card {
+    background-color: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 500px;
+}
+
+.card-footer {
+    display: flex;
+    padding: 0px 24px;
+    padding-top: 0px;
+}
+
+.card-body {
+    padding: 12px 24px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.heading {
+    font-size: 35px;
+}
+
+.heading-small {
+    font-size: 25px;
+}
+
+.heading-xs {
+    font-size: 22px;
+}
+
+.heading-medium {
+    font-size: 27px;
+}
+
+.dont-have-account {
+    padding: 0px 24px;
+    padding-bottom: 8px;
+}
+
+.dont-have-account a {
+    color: #5DD9D3;
+    font-weight: 900;
+}
+
+.button-group-button {
+    padding: 8px 10px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    gap: 7px !important;
+    color: black !important;
+    border-color: #c1c1c1 !important;
+}
+
+.full-screen-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(251, 251, 251, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}

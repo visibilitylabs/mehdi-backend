@@ -1,0 +1,196 @@
+.countdown-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.countdown-wrapper * {
+    transition: .3s all;
+}
+
+:root {
+    --countdown-text-color: #000;
+    --countdown-background-elements: #c1c1c1;
+}
+
+.countdown-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: min(20vh, 100px);
+}
+
+.countdown-timer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: min(20vw, 80px);
+}
+
+.countdown-timer-element:not(:last-child)::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--countdown-text-color);
+    position: absolute;
+    right: calc(-1 * (min(20vw, 80px) / 2));
+    top: 50%;
+    transform: translateY(-25px);
+}
+
+.countdown-timer-element:not(:last-child)::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--countdown-text-color);
+    position: absolute;
+    right: calc(-1 * (min(20vw, 80px) / 2));
+    top: 50%;
+    transform: translateY(5px);
+}
+
+.countdown-first-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-part-edit {
+    gap: 20px;
+}
+
+.countdown-timer-container {
+    margin-top: 0px;
+    position: relative;
+}
+
+.countdown-title,
+.countdown-title input {
+    font-size: 40px;
+    background: transparent;
+    font-weight: 700;
+    color: var(--countdown-text-color);
+}
+
+.countdown-title input {
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: .3s all;
+}
+
+.countdown-title input:focus,
+.countdown-title input:hover,
+.countdown-title input.show-border {
+    outline: none;
+    border: 1px solid var(--countdown-background-elements);
+}
+
+.countdown-project-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--countdown-text-color);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.countdown-title input::placeholder {
+    color: var(--countdown-background-elements);
+}
+
+.countdown-timer-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.countdown-timer-value {
+    font-size: 100px;
+    font-weight: 700;
+    color: var(--countdown-text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.countdown-timer-label {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--countdown-text-color);
+}
+
+.countdown-second-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.want-to-share-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--countdown-text-color);
+}
+
+.countdown-share-button {
+    background: #5DD9DE !important;
+    padding: 8px 28px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    gap: 7px !important;
+    color: var(--countdown-text-color) !important;
+}
+
+.countdown-hoverable {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s all;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--countdown-background-elements);
+    border-radius: 12px;
+    /* add transparency to background */
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.countdown-timer-container:hover .countdown-hoverable,
+.countdown-timer-container.show-hoverable .countdown-hoverable {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.edit-background-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -60px;
+    padding: 10px;
+}
+
+.edit-background-button button {
+    padding: 8px 28px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    gap: 7px !important;
+    color: var(--countdown-text-color) !important;
+    border-color: var(--countdown-background-elements) !important;
+}
+
+.countdown-wrapper svg path {
+    fill: var(--countdown-text-color);
+}
