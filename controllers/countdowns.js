@@ -21,13 +21,18 @@ const createCountDown = async(req, res) => {
 const getCountDowns = async(req, res) => {
     const user_id = req.user._id;
     const { page, pageSize } = req.query;
+    const skip = (page - 1) * pageSize;
+
     try {
-        const countDowns = await CountDown.find({ user: user_id });
-        let list = countDowns;
-        console.log(list)
-        list = list.slice((page - 1) * pageSize, page * pageSize);
-        let count = countDowns.length;
-        res.json({ list, count });
+
+        const [countDowns, count] = await Promise.all([
+            CountDown.find({ user: user_id })
+            .select('-backgroundImage')
+            .skip(skip)
+            .limit(pageSize),
+            CountDown.countDocuments({ user: user_id })
+        ]);
+        res.json({ list: countDowns, count });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -62,7 +67,7 @@ const updateCountDown = async(req, res) => {
 const deleteCountDown = async(req, res) => {
     const { id } = req.params;
     try {
-        const deletedCountDown = await CountDown.findByIdAndRemove(id);
+        const deletedCountDown = await CountDown.findByIdAndDelete(id);
         res.json(deletedCountDown);
     } catch (error) {
         res.status(500).json({ error: error.message });
