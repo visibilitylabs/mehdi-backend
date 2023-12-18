@@ -1,4 +1,7 @@
 import express from 'express';
+import path from 'path';
+
+let __dirname = path.resolve();
 import {
   createCountDown,
   deleteCountDown,
@@ -18,7 +21,11 @@ import { verifyUser } from './middleware.js';
 
 const router = express.Router();
 
-router.post('/check', verifyUser, (req, res) => {
+router.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
+router.post('/api/check', verifyUser, (req, res) => {
   try {
     res.send('Healthy!');
   } catch (err) {
@@ -26,17 +33,17 @@ router.post('/check', verifyUser, (req, res) => {
   }
 });
 
-router.route('/user/login').post(loginUser);
-router.route('/user/signup').post(createUser);
+router.route('/api/user/login').post(loginUser);
+router.route('/api/user/signup').post(createUser);
+router.get('/api/countdown/:id', getCountDown);
 
 router.use(verifyUser);
 router
-  .route('/countdown/:id')
-  .get(getCountDown)
+  .route('/api/countdown/:id')
   .post(createCountDown)
   .delete(deleteCountDown)
   .put(updateCountDown);
-router.route('/countdowns').get(getCountDowns);
-router.route('/user/:id').get(getUser).delete(deleteUser).put(updateUser);
+router.route('/api/countdowns').get(getCountDowns);
+router.route('/api/user/:id').get(getUser).delete(deleteUser).put(updateUser);
 
 export default router;

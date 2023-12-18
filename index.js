@@ -10,7 +10,8 @@ import apiErrorHandler from './api/lib/index.js';
 let __dirname = path.resolve();
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 dotenv.config();
 const db = process.env.MONGO_URI;
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use(apiErrorHandler);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
