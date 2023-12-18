@@ -19,12 +19,10 @@ const createCountDown = async(req, res) => {
 };
 
 const getCountDowns = async(req, res) => {
-    const user_id = req.user._id;
-    const { page, pageSize } = req.query;
-    const skip = (page - 1) * pageSize;
-
     try {
-
+        const user_id = req.user._id;
+        const { page, pageSize } = req.query;
+        const skip = (page - 1) * pageSize;
         const [countDowns, count] = await Promise.all([
             CountDown.find({ user: user_id })
             .select('-backgroundImage')

@@ -18,10 +18,10 @@ dotenv.config();
 const db = process.env.MONGO_URI;
 
 if (db !== '[YOUR CONNECTION STRING HERE]') {
-  mongoose
-    .connect(db, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
+    mongoose
+        .connect(db, { useNewUrlParser: true })
+        .then(() => console.log('MongoDB Connected'))
+        .catch(err => console.log(err));
 }
 
 app.use(cors('*'));
@@ -30,11 +30,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
-app.use('/', router);
+app.use('/api', router);
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
 
 // Write the not found handler
 app.use((req, res, next) => {
-  res.status(404).json({ error: 'Resource not found' });
+    res.status(404).json({ error: 'Resource not found' });
 });
 
 app.use(apiErrorHandler);
