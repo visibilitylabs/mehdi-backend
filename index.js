@@ -6,6 +6,7 @@ import cors from 'cors';
 import router from './api/api.js';
 import morgan from 'morgan';
 import apiErrorHandler from './api/lib/index.js';
+import bodyParser from 'body-parser';
 
 let __dirname = path.resolve();
 
@@ -24,11 +25,10 @@ if (db !== '[YOUR CONNECTION STRING HERE]') {
 }
 
 app.use(cors('*'));
-
 app.use(morgan('dev'));
-
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 app.use('/', router);
 
